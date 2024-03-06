@@ -51,3 +51,49 @@
     </footer>
 </body>
 </html>
+#-------
+ <input id = "Imagen" name="Imagen" type="file" onchange="ValidarImagen(event.target.files), visualizarImagen(this)" />
+
+ <input id="img" src="data:image/*;base64,@Model.Imagen" width="200" height="200" class="mb-2"/>
+
+ [HttpPost]
+ public ActionResult Form(ML.Usuario usuario)
+ {
+     HttpPostedFileBase file = RequestCacheLevel.Files["img"];
+     if(file.ContentLength > 0)
+     {
+         usuario.Imagen = ConvertBase64(file);
+     }
+ }
+ public string ConvertBase64(HttpPostedFileBase Foto)
+ {
+     System.IO.BinaryReader reader = new System.IO.BinaryReader(Foto.InputStream);
+     byte[] data = reader.ReadBytes((int)Foto.ContentLength);
+     string imagen = Convert.ToBase64String(data);
+     return imagen;
+ }
+
+ <script>
+     function ValidarImagen(files)
+     {
+         var extensiones = ['jpeg', 'jpg', 'png'];
+         console.log(document.getElementById("Imagen").files);
+         var extensionArchivo = document.getElementGetById('Imagen').value.split('').pop().toLowerCase();
+         var valid = false;
+         for (var index in extensiones)
+         {
+             if (extensionArchivo === extensiones[index])
+             {
+                 valid = true;
+                 break;
+             }
+         }
+         if (!valid)
+         {
+             alert('Las extensiones permitidas son : *.' + extensiones.join(', *.'));
+             $("#Imagen").val("");
+         }
+         console.log(document.getElementById("Imagen"));
+         return valid;
+     }
+ </script>
