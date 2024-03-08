@@ -98,3 +98,41 @@ ALTER TABLE tutabla ALTER COLUMN nombre columna valor
          return valid;
      }
  </script>
+
+ <label >Password</label>
+    <input type="password" id="contrasena" onblur="pass(this, 'mensaje')">
+    <label id="mensaje"></label>
+    
+    <label >Password confirm</label>
+    <input type="password" id="contrasena1" onblur="pass(this, 'mensaje'); validation();">
+    <label id="mensaje1"></label>
+
+    <script>
+        function pass(input, label) {
+            var tecla = $(input).val();
+            var regex =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8}$/;
+            if (regex.test(tecla)) {
+                $('#' + label).text("✓").css({ "color": "green" });
+                $(input).css({ "border-color": "#3ece1a", "border-width": "2px" });
+            } else {
+                $('#' + label).text("Formato incorrecto").css({ "color": "red" });
+                $(input).css({ "border-color": "#ee8b82", "border-width": "2px" });
+            }
+        }
+        function validation(){
+            var passwd = document.getElementById('contrasena').value;
+            var passwdConfirm = document.getElementById('contrasena1').value;
+            var mensaje = document.getElementById('mensaje1');
+            if(passwdConfirm === passwd){
+                mensaje.textContent = "las contraseñas son iguales";
+                console.log(passwd);
+                console.log(passwdConfirm);
+            }else{
+                mensaje.textContent = "No coinciden las contraseñas";
+                console.log(passwd);
+                console.log(passwdConfirm)
+            }
+        }
+
+       
+    </script>
