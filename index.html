@@ -136,3 +136,25 @@ ALTER TABLE tutabla ALTER COLUMN nombre columna valor
 
        
     </script>
+
+ <p id="valorActualizado">1</p>
+    <p id="precio">35.5</p>
+    <button id="incrementar">Incrementar</button>
+
+  <script>
+        $(document).ready(function() {
+            var precioInicial = parseFloat($("#precio").text());
+            var cantidad = 1;
+
+            function actualizar() {
+                cantidad++;
+
+                var precio = cantidad * precioInicial;
+
+                $("#valorActualizado").text(cantidad);
+                $("#precio").text(precio);
+            }$("#incrementar").click(actualizar);
+        });
+
+           
+  </script>
